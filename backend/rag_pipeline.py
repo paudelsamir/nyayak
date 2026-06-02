@@ -2,7 +2,6 @@ import os
 import json
 from typing import List, Dict
 import numpy as np
-from models import Source
 
 class HybridVectorStore:
     """Fast hybrid search: BM25 keyword + optional embeddings"""
