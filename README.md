@@ -135,6 +135,16 @@ Forum discussion is intentionally *more social than static*. Replies, upvotes, a
 - **Real-Time Data Layer**: Convex DB (reactive connections, zero polling)
 - **AI / Inference Backend**: Python, FastAPI, LangChain, ChromaDB, Google Gemini / Groq.
 
+### Run the backend locally
+From the repository root:
+
+```bash
+python -m pip install -r backend/requirements.txt
+npm run backend
+```
+
+The API starts on `http://localhost:8000` and exposes `GET /health`.
+
 The hand-drawn system design sketch and the architecture diagram tell the same story from two angles: product thinking first, then implementation. Real-world constraints matter-so we build to scale efficiently on free tiers. 
 
 <p align="center">
@@ -179,4 +189,3 @@ Courts across 77 districts form a weighted graph $G=(C, E)$. Edge weights are ca
 
 
 *To be submitted as a FYP (CSIT)*
-
