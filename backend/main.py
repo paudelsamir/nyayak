@@ -8,11 +8,11 @@ from groq import Groq
 try:
     from .models import LegalQuery, LegalResponse, Source
     from .rag_pipeline import RAGPipeline, load_constitution_pdf
-    from .lawyers_db import find_best_lawyer
+    from .lawyers_db import LAWYERS_DATABASE, find_best_lawyer, find_lawyers_by_specialization
 except ImportError:
     from models import LegalQuery, LegalResponse, Source
     from rag_pipeline import RAGPipeline, load_constitution_pdf
-    from lawyers_db import find_best_lawyer
+    from lawyers_db import LAWYERS_DATABASE, find_best_lawyer, find_lawyers_by_specialization
 
 # Load environment variables
 load_dotenv()
@@ -176,11 +176,6 @@ Provide clear, authoritative legal information."""
 @app.get("/api/lawyers")
 async def get_lawyers(specialization: str = None):
     """Get all lawyers or filter by specialization"""
-    try:
-        from .lawyers_db import LAWYERS_DATABASE, find_lawyers_by_specialization
-    except ImportError:
-        from lawyers_db import LAWYERS_DATABASE, find_lawyers_by_specialization
-    
     try:
         if specialization:
             lawyers = find_lawyers_by_specialization(specialization)
