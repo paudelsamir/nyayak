@@ -1,5 +1,8 @@
 from typing import Optional
-from models import Lawyer
+try:
+    from .models import Lawyer
+except ImportError:
+    from models import Lawyer
 
 LAWYERS_DATABASE = [
     Lawyer(

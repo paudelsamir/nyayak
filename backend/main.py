@@ -5,9 +5,14 @@ from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 from groq import Groq
 
-from models import LegalQuery, LegalResponse, Source
-from rag_pipeline import RAGPipeline, load_constitution_pdf
-from lawyers_db import find_best_lawyer
+try:
+    from .models import LegalQuery, LegalResponse, Source
+    from .rag_pipeline import RAGPipeline, load_constitution_pdf
+    from .lawyers_db import find_best_lawyer
+except ImportError:
+    from models import LegalQuery, LegalResponse, Source
+    from rag_pipeline import RAGPipeline, load_constitution_pdf
+    from lawyers_db import find_best_lawyer
 
 # Load environment variables
 load_dotenv()
@@ -171,7 +176,10 @@ Provide clear, authoritative legal information."""
 @app.get("/api/lawyers")
 async def get_lawyers(specialization: str = None):
     """Get all lawyers or filter by specialization"""
-    from lawyers_db import LAWYERS_DATABASE, find_lawyers_by_specialization
+    try:
+        from .lawyers_db import LAWYERS_DATABASE, find_lawyers_by_specialization
+    except ImportError:
+        from lawyers_db import LAWYERS_DATABASE, find_lawyers_by_specialization
     
     try:
         if specialization:
