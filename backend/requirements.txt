@@ -1,6 +1,7 @@
 fastapi
 uvicorn
 python-dotenv
+rank-bm25
 langchain
 langchain-google-genai
 langchain-chroma
