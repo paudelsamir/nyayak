@@ -7,10 +7,7 @@ import Image from "next/image";
 import { useUser } from "@clerk/nextjs";
 
 
-export default function Home() {
-  const { user } = useUser();
-  const role = (user?.unsafeMetadata?.role as string) || "user";
-
+function HomeContent({ role }: { role: string }) {
   return (
     <main className="font-sans text-nyayak-dark selection:bg-nyayak-orange selection:text-white bg-[#F3EFE7]">
             {/* Hero Section */}
@@ -131,4 +128,17 @@ export default function Home() {
 
     </main>
   );
+}
+
+function HomeWithAuthRole() {
+  const { user } = useUser();
+  const role = (user?.unsafeMetadata?.role as string) || "user";
+  return <HomeContent role={role} />;
+}
+
+export default function Home() {
+  if (!process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY) {
+    return <HomeContent role="user" />;
+  }
+  return <HomeWithAuthRole />;
 }
